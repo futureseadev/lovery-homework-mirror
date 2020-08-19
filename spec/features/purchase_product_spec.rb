@@ -21,11 +21,12 @@ RSpec.feature 'Purchase Product', type: :feature do
     fill_in 'order[zipcode]', with: 83_701
     fill_in 'order[child_full_name]', with: 'Kim Jones'
     fill_in 'order[child_birthdate]', with: '2019-03-03'
-
+    fill_in 'order[message]', with: Faker::Lorem.paragraph(sentence_count: 5)
     click_on 'Purchase'
 
     expect(page).to have_content('Thanks for Your Order')
     expect(page).to have_content(Order.last.user_facing_id)
+    expect(Order.last.message).not_to be_blank
     expect(page).to have_content('Kim Jones')
   end
 

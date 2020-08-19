@@ -29,10 +29,14 @@
     </div>
     <div class="form-group col-md-6">
       <%= form.label :child_birthdate, "Your Child's Birthdate (or expected date)" %>
-      <%= form.text_field :child_birthdate, class: "form-control datepicker" %>
+      <%= form.text_field :child_birthdate, class: "form-control" %>
       <small id="passwordHelpBlock" class="form-text text-muted">
         Use format YYYY-MM-DD
       </small>
+    </div>
+    <div class="form-group col-md-12">
+      <%= form.label :message, "Message to child - OPTIONAL" %>
+      <%= form.text_area :message, class: "form-control", rows: 5 %>
     </div>
   </div>
   <div class="form-row">

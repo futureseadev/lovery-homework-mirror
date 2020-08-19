@@ -21,7 +21,7 @@ class OrdersController < ApplicationController
   private
 
   def order_params
-    params.require(:order).permit(:shipping_name, :product_id, :zipcode, :address).merge(paid: false)
+    params.require(:order).permit(:shipping_name, :product_id, :zipcode, :address, :message).merge(paid: false)
   end
 
   def child_params
