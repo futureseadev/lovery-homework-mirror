@@ -4,7 +4,7 @@ class OrdersController < ApplicationController
   end
 
   def create
-    @order = Order.create(order_params.merge(child: child, user_facing_id: SecureRandom.uuid[0..7]))
+    @order = create_order
 
     if @order.valid?
       Purchaser.new.purchase(@order, credit_card_params)
@@ -50,9 +50,18 @@ class OrdersController < ApplicationController
 
   def child
     if gifting?
-      Child.find_by(gifted_child_params)
+      Child.includes(:orders).find_by(gifted_child_params)
     else
       Child.find_or_create_by(child_params)
+    end
+  end
+
+  def create_order
+    if gifting?
+      order = child&.orders&.last
+      Order.create(order_params.merge(child: child, address: order&.address, zipcode: order&.zipcode))
+    else
+      Order.create(order_params.merge(child: child))
     end
   end
 end

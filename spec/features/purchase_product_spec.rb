@@ -4,6 +4,10 @@ RSpec.feature 'Purchase Product', type: :feature do
   let!(:product) { FactoryBot.create(:product) }
   let!(:child) { FactoryBot.create(:child) }
 
+  before do
+    FactoryBot.create(:order, product: product, child: child)
+  end
+
   scenario 'Creates an order and charges us' do
     visit '/'
 
@@ -27,6 +31,7 @@ RSpec.feature 'Purchase Product', type: :feature do
     expect(page).to have_content('Thanks for Your Order')
     expect(page).to have_content(Order.last.user_facing_id)
     expect(Order.last.message).not_to be_blank
+    expect(Order.last.user_facing_id.length).to eq(8)
     expect(page).to have_content('Kim Jones')
   end
 

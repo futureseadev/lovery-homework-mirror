@@ -8,4 +8,8 @@ class Order < ApplicationRecord
   def to_param
     user_facing_id
   end
+
+  before_create do |order|
+    order.user_facing_id ||= SecureRandom.uuid[0..7]
+  end
 end
