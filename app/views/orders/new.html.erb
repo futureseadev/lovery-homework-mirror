@@ -13,6 +13,16 @@
       <%= form.label :shipping_name, "Your Name" %>
       <%= form.text_field :shipping_name, class: "form-control" %>
     </div>
+    <div class="form-group col-md-2">
+      <span class="text-right">
+          <%= form.label :as_gift, "Buy as gift" %>
+      </span>
+      <%= form.check_box :as_gift, class: "form-control" %>
+    </div>
+    <div class="form-group col-md-6">
+      <%= form.label :child_parent_name, "Child's Parent Name" %>
+      <%= form.text_field :child_parent_name, class: "form-control", disabled: true %>
+    </div>
     <div class="form-group col-md-6">
       <%= form.label :child_full_name, "Your Child's Name" %>
       <%= form.text_field :child_full_name, class: "form-control" %>
@@ -23,6 +33,10 @@
       <small id="passwordHelpBlock" class="form-text text-muted">
         Use format YYYY-MM-DD
       </small>
+    </div>
+    <div class="form-group col-md-12">
+      <%= form.label :message, "Message to child - OPTIONAL" %>
+      <%= form.text_area :message, class: "form-control", rows: 5 %>
     </div>
   </div>
   <div class="form-row">
@@ -59,3 +73,11 @@
   </div>
 <% end %>
 </section>
+
+<script type='text/javascript'>
+  $('#order_as_gift').on('click', function(){
+    $('#order_child_parent_name').prop('disabled', function(i, v) { return !v; });
+    $('#order_address').prop('disabled', function(i, v) { return !v; });
+    $('#order_zipcode').prop('disabled', function(i, v) { return !v; });
+  });
+</script>
